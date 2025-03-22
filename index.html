@@ -1,49 +1,295 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Top 10 HTML5 Games to Play Now! | MonsterSurvivors.com</title>
-    <meta name="description" content="Play the top 10 hottest HTML5 games online! Updated automatically with the best action, puzzle, and racing games.">
-    <link rel="canonical" href="https://monstersurvivors.com/">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>热门HTML5游戏推荐</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .intro {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .game-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .game-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        
+        .game-info {
+            padding: 1rem;
+        }
+        
+        .game-info h3 {
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+        }
+        
+        .game-info p {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .play-btn {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        
+        .play-btn:hover {
+            background-color: #2980b9;
+        }
+        
+        .game-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            width: 90%;
+            max-width: 800px;
+            height: 90%;
+            max-height: 600px;
+            border-radius: 8px;
+            position: relative;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+        
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 8px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: #2c3e50;
+            color: white;
+            margin-top: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .games-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
-<body class="bg-gray-100 text-gray-900">
-    <header class="bg-gradient-to-r from-blue-500 to-purple-600 text-white text-center p-6">
-        <h1 class="text-3xl font-bold">Top 10 HTML5 Games to Play Now!</h1>
-        <p class="text-lg">Enjoy the best and most popular HTML5 games online, updated automatically.</p>
+<body>
+    <header>
+        <h1>热门HTML5游戏推荐</h1>
+        <p>发现并体验最好玩的HTML5游戏</p>
     </header>
     
-    <main class="max-w-6xl mx-auto py-8">
-        <h2 class="text-2xl font-semibold mb-4">Featured Games</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <script>
-                const games = [
-                    { name: "Space Shooter", desc: "Blast through waves of enemies in space!", img: "https://via.placeholder.com/300x150", url: "https://example.com/game1" },
-                    { name: "Puzzle Master", desc: "Solve tricky puzzles and challenge your mind.", img: "https://via.placeholder.com/300x150", url: "https://example.com/game2" },
-                    { name: "Racing Fever", desc: "Fast-paced racing action with stunning graphics!", img: "https://via.placeholder.com/300x150", url: "https://example.com/game3" }
-                ];
-                document.write(
-                    games.map(game => `
-                        <div class='bg-white rounded-lg shadow p-4'>
-                            <img src='${game.img}' alt='${game.name}' class='w-full h-48 object-cover rounded-md'>
-                            <h3 class='text-lg font-bold mt-2'>${game.name}</h3>
-                            <p class='text-gray-600 text-sm mb-2'>${game.desc}</p>
-                            <iframe src='${game.url}' class='w-full h-96 border rounded-md'></iframe>
-                        </div>
-                    `).join('')
-                );
-            </script>
-        </div>
-    </main>
-    
-    <div class="max-w-6xl mx-auto text-center mt-8">
-        <p class="text-gray-600">Advertisement</p>
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-xxxxxxxxxxxx" data-ad-slot="xxxxxxxxxx" data-ad-format="auto"></ins>
-        <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
+    <div class="container">
+        <section class="intro">
+            <h2>2025年最火爆的10款HTML5游戏</h2>
+            <p>这些游戏无需下载，直接在浏览器中即可畅玩！</p>
+        </section>
+        
+        <section class="games-grid">
+            <!-- 游戏1 -->
+            <div class="game-card">
+                <img src="/api/placeholder/300/180" alt="2048">
+                <div class="game-info">
+                    <h3>2048</h3>
+                    <p>经典数字益智游戏，通过合并相同数字创造2048。</p>
+                    <a href="#" class="play-btn" onclick="openGameModal('https://play2048.co/')">开始游戏</a>
+                </div>
+            </div>
+            
+            <!-- 游戏2 -->
+            <div class="game-card">
+                <img src="/api/placeholder/300/180" alt="Flappy Bird">
+                <div class="game-info">
+                    <h3>Flappy Bird</h3>
+                    <p>控制小鸟穿过管道，挑战你的耐心和反应能力。</p>
+                    <a href="#" class="play-btn" onclick="openGameModal('https://flappybird.io/')">开始游戏</a>
+                </div>
+            </div>
+            
+            <!-- 游戏3 -->
+            <div class="game-card">
+                <img src="/api/placeholder/300/180" alt="跳一跳">
+                <div class="game-info">
+                    <h3>跳一跳</h3>
+                    <p>模仿微信小游戏，控制小人跳跃到目标平台。</p>
+                    <a href="#" class="play-btn" onclick="openGameModal('https://jump.h5gg.me/')">开始游戏</a>
+                </div>
+            </div>
+            
+            <!-- 游戏4 -->
+            <div class="game-card">
+                <img src="/api/placeholder/300/180" alt="Cut the Rope">
+                <div class="game-info">
+                    <h3>Cut the Rope</h3>
+                    <p>通过切断绳子，将糖果送入小怪兽嘴里的物理解谜游戏。</p>
+                    <a href="#" class="play-btn" onclick="openGameModal('https://cuttherope.net/')">开始游戏</a>
+                </div>
+            </div>
+            
+            <!-- 游戏5 -->
+            <div class="game-card">
+                <img src="/api/placeholder/300/180" alt="贪吃蛇">
+                <div class="game-info">
+                    <h3>贪吃蛇</h3>
+                    <p>经典的贪吃蛇游戏，控制蛇吃食物并不断变长。</p>
+                    <a href="#" class="play-btn" onclick="openGameModal('https://playsnake.org/')">开始游戏</a>
+                </div>
+            </div>
+            
+            <!-- 游戏6 -->
+            <div class="game-card">
+                <img src="/api/placeholder/300/180" alt="Slither.io">
+                <div class="game-info">
+                    <h3>Slither.io</h3>
+                    <p>多人贪吃蛇游戏，与世界各地玩家竞争成为最大的蛇。</p>
+                    <a href="#" class="play-btn" onclick="openGameModal('https://slither.io/')">开始游戏</a>
+                </div>
+            </div>
+            
+            <!-- 游戏7 -->
+            <div class="game-card">
+                <img src="/api/placeholder/300/180" alt="Wordle">
+                <div class="game-info">
+                    <h3>Wordle</h3>
+                    <p>每天一个单词，六次机会，猜中这个5个字母的单词。</p>
+                    <a href="#" class="play-btn" onclick="openGameModal('https://www.powerlanguage.co.uk/wordle/')">开始游戏</a>
+                </div>
+            </div>
+            
+            <!-- 游戏8 -->
+            <div class="game-card">
+                <img src="/api/placeholder/300/180" alt="Agar.io">
+                <div class="game-info">
+                    <h3>Agar.io</h3>
+                    <p>控制一个细胞，吃掉比你小的细胞，避免被比你大的吃掉。</p>
+                    <a href="#" class="play-btn" onclick="openGameModal('https://agar.io/')">开始游戏</a>
+                </div>
+            </div>
+            
+            <!-- 游戏9 -->
+            <div class="game-card">
+                <img src="/api/placeholder/300/180" alt="钢琴块">
+                <div class="game-info">
+                    <h3>钢琴块</h3>
+                    <p>点击黑色钢琴块，避免白色块，创造美妙音乐。</p>
+                    <a href="#" class="play-btn" onclick="openGameModal('https://www.pianotiles.org/')">开始游戏</a>
+                </div>
+            </div>
+            
+            <!-- 游戏10 -->
+            <div class="game-card">
+                <img src="/api/placeholder/300/180" alt="六角碰撞">
+                <div class="game-info">
+                    <h3>六角碰撞</h3>
+                    <p>控制六边形，躲避障碍物，看看你能坚持多久。</p>
+                    <a href="#" class="play-btn" onclick="openGameModal('https://hextris.io/')">开始游戏</a>
+                </div>
+            </div>
+        </section>
     </div>
+    
+    <!-- 游戏弹窗 -->
+    <div id="gameModal" class="game-modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeGameModal()">&times;</span>
+            <iframe id="gameFrame" src="" allowfullscreen></iframe>
+        </div>
+    </div>
+    
+    <footer>
+        <p>&copy; 2025 热门HTML5游戏推荐网站. 版权所有</p>
+        <p>游戏均来自互联网，仅用于个人学习和体验</p>
+    </footer>
+    
+    <script>
+        function openGameModal(gameUrl) {
+            document.getElementById('gameFrame').src = gameUrl;
+            document.getElementById('gameModal').style.display = 'flex';
+            return false;
+        }
+        
+        function closeGameModal() {
+            document.getElementById('gameFrame').src = '';
+            document.getElementById('gameModal').style.display = 'none';
+        }
+        
+        // 点击模态框外部关闭
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('gameModal')) {
+                closeGameModal();
+            }
+        }
+    </script>
 </body>
 </html>

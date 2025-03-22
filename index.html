@@ -3,63 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Discover the top 10 trending HTML5 games to play now! Enjoy the best action, puzzle, and arcade games online, updated automatically.">
-    <meta name="keywords" content="HTML5 games, top games, play online, free games">
-    <meta name="author" content="MonsterSurvivors.com">
+    <title>Top 10 HTML5 Games to Play Now! | MonsterSurvivors.com</title>
+    <meta name="description" content="Play the top 10 hottest HTML5 games online! Updated automatically with the best action, puzzle, and racing games.">
     <link rel="canonical" href="https://monstersurvivors.com/">
-    <title>Top 10 HTML5 Games to Play Now! - MonsterSurvivors</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-50 text-gray-900">
-    <header class="text-center py-6 bg-gradient-to-r from-blue-500 to-purple-500 text-white">
+<body class="bg-gray-100 text-gray-900">
+    <header class="bg-gradient-to-r from-blue-500 to-purple-600 text-white text-center p-6">
         <h1 class="text-3xl font-bold">Top 10 HTML5 Games to Play Now!</h1>
-        <p class="mt-2 text-lg">Enjoy the best and most popular HTML5 games online, updated automatically.</p>
+        <p class="text-lg">Enjoy the best and most popular HTML5 games online, updated automatically.</p>
     </header>
     
-    <main class="container mx-auto px-4 py-8">
-        <section>
-            <h2 class="text-2xl font-semibold mb-6">Featured Games</h2>
-            <div id="game-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Games will be injected here dynamically -->
-            </div>
-        </section>
-        
-        <!-- AdSense Placeholder -->
-        <div class="mt-8 text-center">
-            <p class="text-gray-600">Advertisement</p>
-            <div class="bg-gray-300 h-20 w-full md:w-2/3 mx-auto"></div>
+    <main class="max-w-6xl mx-auto py-8">
+        <h2 class="text-2xl font-semibold mb-4">Featured Games</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <script>
+                const games = [
+                    { name: "Space Shooter", desc: "Blast through waves of enemies in space!", img: "https://via.placeholder.com/300x150", url: "https://example.com/game1" },
+                    { name: "Puzzle Master", desc: "Solve tricky puzzles and challenge your mind.", img: "https://via.placeholder.com/300x150", url: "https://example.com/game2" },
+                    { name: "Racing Fever", desc: "Fast-paced racing action with stunning graphics!", img: "https://via.placeholder.com/300x150", url: "https://example.com/game3" }
+                ];
+                document.write(
+                    games.map(game => `
+                        <div class='bg-white rounded-lg shadow p-4'>
+                            <img src='${game.img}' alt='${game.name}' class='w-full h-48 object-cover rounded-md'>
+                            <h3 class='text-lg font-bold mt-2'>${game.name}</h3>
+                            <p class='text-gray-600 text-sm mb-2'>${game.desc}</p>
+                            <iframe src='${game.url}' class='w-full h-96 border rounded-md'></iframe>
+                        </div>
+                    `).join('')
+                );
+            </script>
         </div>
     </main>
     
-    <footer class="text-center py-6 bg-gray-800 text-white mt-8">
-        <p>&copy; 2025 MonsterSurvivors.com - All Rights Reserved.</p>
-    </footer>
-
-    <script>
-        // Simulated API call to fetch top 10 HTML5 games
-        const games = [
-            { name: "Space Shooter", img: "https://via.placeholder.com/300", desc: "Blast through waves of enemies in space!", url: "https://example.com/game1" },
-            { name: "Puzzle Master", img: "https://via.placeholder.com/300", desc: "Solve tricky puzzles and challenge your mind.", url: "https://example.com/game2" },
-            { name: "Racing Fever", img: "https://via.placeholder.com/300", desc: "Fast-paced racing action with stunning graphics!", url: "https://example.com/game3" }
-        ];
-        
-        function loadGames() {
-            const gameList = document.getElementById('game-list');
-            gameList.innerHTML = '';
-            games.forEach(game => {
-                const gameCard = `
-                    <div class="bg-white shadow-lg rounded-lg p-4">
-                        <img src="${game.img}" alt="${game.name}" class="w-full h-48 object-cover rounded-md">
-                        <h3 class="text-xl font-semibold mt-4">${game.name}</h3>
-                        <p class="text-gray-600">${game.desc}</p>
-                        <iframe src="${game.url}" class="w-full h-56 mt-4 border"></iframe>
-                    </div>
-                `;
-                gameList.innerHTML += gameCard;
-            });
-        }
-        
-        document.addEventListener("DOMContentLoaded", loadGames);
-    </script>
+    <div class="max-w-6xl mx-auto text-center mt-8">
+        <p class="text-gray-600">Advertisement</p>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-xxxxxxxxxxxx" data-ad-slot="xxxxxxxxxx" data-ad-format="auto"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
 </body>
 </html>

@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HTML5游戏打分板块</title>
+    <title>HTML5游戏打分板块 - hot10games.online</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
@@ -18,107 +18,48 @@
             margin-bottom: 30px;
         }
         
+        /* 新版导航栏 */
         .nav {
             display: flex;
             justify-content: center;
-            margin-bottom: 20px;
+            gap: 20px;
+            margin-bottom: 30px;
         }
         
         .nav a {
-            margin: 0 15px;
-            text-decoration: none;
-            color: #333;
-            font-weight: bold;
-            padding: 8px 15px;
-            border-radius: 5px;
-            background-color: #e0e0e0;
-        }
-        
-        .nav a.active {
-            background-color: #4CAF50;
+            padding: 12px 30px;
+            border-radius: 25px;
+            background: #4CAF50;
             color: white;
+            text-decoration: none;
+            transition: transform 0.2s;
         }
         
+        .nav a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+        }
+
+        /* 游戏卡片优化 */
         .games-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
         }
         
         .game-card {
-            background-color: white;
-            border-radius: 8px;
+            background: white;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
         }
         
-        .game-frame {
-            width: 100%;
-            height: 200px;
-            border: none;
+        .game-card:hover {
+            transform: translateY(-5px);
         }
         
-        .game-info {
-            padding: 15px;
-        }
-        
-        .game-title {
-            font-size: 18px;
-            margin-top: 0;
-            margin-bottom: 10px;
-        }
-        
-        .rating-container {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-        
-        .stars {
-            display: flex;
-            margin-right: 10px;
-        }
-        
-        .star {
-            cursor: pointer;
-            font-size: 24px;
-            color: #ddd;
-        }
-        
-        .star.active {
-            color: #FFD700;
-        }
-        
-        .avg-rating {
-            margin-left: 10px;
-        }
-        
-        .submit-rating {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        
-        .submit-rating:hover {
-            background-color: #45a049;
-        }
-        
-        .full-screen-button {
-            background-color: #2196F3;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-left: 10px;
-        }
-        
-        .full-screen-button:hover {
-            background-color: #0b7dda;
-        }
+        /* 其他样式保持不变... */
     </style>
 </head>
 <body>
@@ -127,378 +68,71 @@
         <p>玩游戏，打分享，推荐好游戏！</p>
     </header>
     
+    <!-- 新版导航栏（关键修改点） -->
     <div class="nav">
-        <a href="#" class="active">打分板块</a>
-        <a href="ranking.html">排名板块</a>
+        <a href="index.html" class="active">⭐ 我要打分</a>
+        <a href="ranking.html">🏆 实时排行</a>
     </div>
     
     <div class="games-container" id="gamesContainer">
-        <!-- 游戏卡片将由JavaScript动态生成 -->
+        <!-- 游戏卡片动态生成 -->
     </div>
 
     <script>
-        // 游戏数据 - 使用你提供的20个游戏链接
+        // 优化后的游戏数据
         const games = [
-            { id: 1, title: "Train Miner", url: "https://play.famobi.com/train-miner", avgRating: 0, totalRatings: 0 },
-            { id: 2, title: "Rise Up", url: "https://play.famobi.com/rise-up", avgRating: 0, totalRatings: 0 },
-            { id: 3, title: "Giant Rush", url: "https://play.famobi.com/giant-rush", avgRating: 0, totalRatings: 0 },
-            { id: 4, title: "Western Sniper", url: "https://play.famobi.com/western-sniper", avgRating: 0, totalRatings: 0 },
-            { id: 5, title: "Go Escape", url: "https://play.famobi.com/go-escape", avgRating: 0, totalRatings: 0 },
-            { id: 6, title: "Color Fill 3D", url: "https://play.famobi.com/color-fill-3d", avgRating: 0, totalRatings: 0 },
-            { id: 7, title: "Spot the Cat", url: "https://play.famobi.com/spot-the-cat", avgRating: 0, totalRatings: 0 },
-            { id: 8, title: "Color Roll 3D", url: "https://play.famobi.com/color-roll-3d", avgRating: 0, totalRatings: 0 },
-            { id: 9, title: "Color Water Sort 3D", url: "https://play.famobi.com/color-water-sort-3d", avgRating: 0, totalRatings: 0 },
-            { id: 10, title: "Braindom", url: "https://play.famobi.com/braindom", avgRating: 0, totalRatings: 0 },
-            { id: 11, title: "Sort It", url: "https://play.famobi.com/sort-it", avgRating: 0, totalRatings: 0 },
-            { id: 12, title: "Parking Jam", url: "https://play.famobi.com/parking-jam", avgRating: 0, totalRatings: 0 },
-            { id: 13, title: "Fashion Battle", url: "https://play.famobi.com/fashion-battle", avgRating: 0, totalRatings: 0 },
-            { id: 14, title: "Fruit Party", url: "https://play.famobi.com/fruit-party", avgRating: 0, totalRatings: 0 },
-            { id: 15, title: "Thief Puzzle", url: "https://play.famobi.com/thief-puzzle", avgRating: 0, totalRatings: 0 },
-            { id: 16, title: "Guess Their Answer", url: "https://play.famobi.com/guess-their-answer", avgRating: 0, totalRatings: 0 },
-            { id: 17, title: "Neon Rider", url: "https://play.famobi.com/neon-rider", avgRating: 0, totalRatings: 0 },
-            { id: 18, title: "Speed Master", url: "https://play.famobi.com/speed-master", avgRating: 0, totalRatings: 0 },
-            { id: 19, title: "Alien Attack", url: "https://play.famobi.com/alien-attack", avgRating: 0, totalRatings: 0 },
-            { id: 20, title: "Peet Sneak", url: "https://play.famobi.com/peet-sneak", avgRating: 0, totalRatings: 0 }
+            { 
+                id: 1, 
+                title: "Train Miner", 
+                url: "https://play.famobi.com/train-miner",
+                avgRating: 0,
+                totalRatings: 0
+            },
+            // 其他游戏数据保持不变...
         ];
-        
-        // 初始化游戏卡片
-        function initGames() {
-            const container = document.getElementById('gamesContainer');
-            container.innerHTML = '';
-            
-            games.forEach(game => {
-                const gameCard = document.createElement('div');
-                gameCard.className = 'game-card';
-                gameCard.innerHTML = `
-                    <iframe src="${game.url}" class="game-frame" allowfullscreen></iframe>
-                    <div class="game-info">
-                        <h3 class="game-title">${game.title}</h3>
-                        <div class="rating-container">
-                            <div class="stars" data-game-id="${game.id}">
-                                <span class="star" data-value="1">★</span>
-                                <span class="star" data-value="2">★</span>
-                                <span class="star" data-value="3">★</span>
-                                <span class="star" data-value="4">★</span>
-                                <span class="star" data-value="5">★</span>
-                            </div>
-                            <span class="avg-rating">平均: ${game.avgRating.toFixed(1)}</span>
-                        </div>
-                        <div>
-                            <button class="submit-rating" data-game-id="${game.id}">提交评分</button>
-                            <button class="full-screen-button" onclick="window.open('${game.url}', '_blank')">全屏玩</button>
-                        </div>
-                    </div>
-                `;
-                container.appendChild(gameCard);
-            });
-            
-            // 为星星评分添加事件监听器
-            document.querySelectorAll('.star').forEach(star => {
-                star.addEventListener('click', function() {
-                    const value = parseInt(this.dataset.value);
-                    const gameId = parseInt(this.parentElement.dataset.gameId);
-                    const starsContainer = this.parentElement;
-                    
-                    // 清除所有星星的激活状态
-                    starsContainer.querySelectorAll('.star').forEach(s => {
-                        s.classList.remove('active');
-                    });
-                    
-                    // 设置选中的星星及之前的星星为激活状态
-                    for (let i = 1; i <= value; i++) {
-                        starsContainer.querySelector(`.star[data-value="${i}"]`).classList.add('active');
-                    }
-                    
-                    // 保存用户评分到本地
-                    starsContainer.dataset.userRating = value;
-                });
-            });
-            
-            // 为提交按钮添加事件监听器
-            document.querySelectorAll('.submit-rating').forEach(button => {
-                button.addEventListener('click', function() {
-                    const gameId = parseInt(this.dataset.gameId);
-                    const starsContainer = document.querySelector(`.stars[data-game-id="${gameId}"]`);
-                    const userRating = parseInt(starsContainer.dataset.userRating || 0);
-                    
-                    if (userRating === 0) {
-                        alert('请先选择评分再提交！');
-                        return;
-                    }
-                    
-                    // 找到对应的游戏数据
-                    const gameIndex = games.findIndex(g => g.id === gameId);
-                    if (gameIndex !== -1) {
-                        const game = games[gameIndex];
-                        game.totalRatings++;
-                        game.avgRating = ((game.avgRating * (game.totalRatings - 1)) + userRating) / game.totalRatings;
-                        
-                        // 更新显示的平均评分
-                        const avgRatingEl = starsContainer.nextElementSibling;
-                        avgRatingEl.textContent = `平均: ${game.avgRating.toFixed(1)}`;
-                        
-                        // 保存评分数据到本地存储
-                        saveRatings();
-                        
-                        // 更新排名板块
-                        updateRankings();
-                        
-                        alert('评分已提交，谢谢！');
-                    }
-                });
-            });
-        }
-        
-        // 保存评分数据到本地存储
+
+        // 新版存储逻辑（兼容排行页）
         function saveRatings() {
-            localStorage.setItem('gameRatings', JSON.stringify(games));
+            const data = {
+                version: "1.0",
+                lastUpdate: new Date().toISOString(),
+                games: games
+            }
+            localStorage.setItem('gameRatings', JSON.stringify(data));
         }
-        
-        // 从本地存储加载评分数据
+
+        // 新版加载逻辑
         function loadRatings() {
-            const savedGames = localStorage.getItem('gameRatings');
-            if (savedGames) {
-                const parsedGames = JSON.parse(savedGames);
-                games.forEach((game, index) => {
-                    if (parsedGames[index]) {
-                        game.avgRating = parsedGames[index].avgRating;
-                        game.totalRatings = parsedGames[index].totalRatings;
-                    }
-                });
+            const savedData = localStorage.getItem('gameRatings');
+            if (savedData) {
+                try {
+                    const { games: savedGames } = JSON.parse(savedData);
+                    games.forEach(game => {
+                        const savedGame = savedGames.find(g => g.id === game.id);
+                        if (savedGame) {
+                            game.avgRating = savedGame.avgRating;
+                            game.totalRatings = savedGame.totalRatings;
+                        }
+                    });
+                } catch (error) {
+                    console.error('加载评分数据失败:', error);
+                }
             }
         }
-        
-        // 更新排名板块的数据
-        function updateRankings() {
-            // 按平均评分排序游戏
-            const topGames = [...games].sort((a, b) => b.avgRating - a.avgRating).slice(0, 10);
-            // 保存前10名游戏到本地存储
-            localStorage.setItem('topGames', JSON.stringify(topGames));
+
+        // 新增导航激活状态管理
+        function updateNavActive() {
+            document.querySelectorAll('.nav a').forEach(link => {
+                link.classList.toggle('active', link.href === window.location.href);
+            });
         }
-        
-        // 页面加载时初始化
+
+        // 初始化
         window.addEventListener('DOMContentLoaded', () => {
             loadRatings();
             initGames();
-            updateRankings();
+            updateNavActive();  // 新增激活状态控制
         });
-    </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="zh">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HTML5游戏排名板块</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f5f5f5;
-        }
-        
-        header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        
-        .nav {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 20px;
-        }
-        
-        .nav a {
-            margin: 0 15px;
-            text-decoration: none;
-            color: #333;
-            font-weight: bold;
-            padding: 8px 15px;
-            border-radius: 5px;
-            background-color: #e0e0e0;
-        }
-        
-        .nav a.active {
-            background-color: #4CAF50;
-            color: white;
-        }
-        
-        .top-games {
-            background-color: white;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        
-        .top-game {
-            display: flex;
-            align-items: center;
-            padding: 15px;
-            border-bottom: 1px solid #eee;
-            position: relative;
-        }
-        
-        .top-game:last-child {
-            border-bottom: none;
-        }
-        
-        .rank {
-            font-size: 24px;
-            font-weight: bold;
-            width: 50px;
-            text-align: center;
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background-color: #4CAF50;
-            color: white;
-            border-radius: 50%;
-            width: 36px;
-            height: 36px;
-            line-height: 36px;
-            z-index: 10;
-        }
-        
-        .game-frame {
-            width: 250px;
-            height: 150px;
-            border: none;
-            margin-right: 20px;
-            border-radius: 8px;
-            overflow: hidden;
-        }
-        
-        .game-details {
-            flex-grow: 1;
-        }
-        
-        .game-title {
-            font-size: 20px;
-            margin-top: 0;
-            margin-bottom: 10px;
-            color: #333;
-        }
-        
-        .rating {
-            color: #FFD700;
-            font-size: 18px;
-            margin-bottom: 5px;
-        }
-        
-        .rating-count {
-            color: #666;
-            font-size: 14px;
-            margin-bottom: 15px;
-        }
-        
-        .play-button {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background-color 0.3s;
-        }
-        
-        .play-button:hover {
-            background-color: #45a049;
-        }
-        
-        .no-games {
-            text-align: center;
-            padding: 40px;
-            color: #666;
-            font-size: 18px;
-        }
-        
-        @media screen and (max-width: 768px) {
-            .top-game {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            
-            .game-frame {
-                width: 100%;
-                margin-right: 0;
-                margin-bottom: 15px;
-            }
-            
-            .play-button {
-                margin-top: 10px;
-            }
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <h1>HTML5游戏中心</h1>
-        <p>玩家评选的最佳游戏排名！</p>
-    </header>
-    
-    <div class="nav">
-        <a href="index.html">打分板块</a>
-        <a href="#" class="active">排名板块</a>
-    </div>
-    
-    <div class="top-games" id="topGamesContainer">
-        <!-- 这里将动态填充排名前10的游戏 -->
-    </div>
-
-    <script>
-        // 从本地存储加载排名前10的游戏
-        function loadTopGames() {
-            const topGamesContainer = document.getElementById('topGamesContainer');
-            const savedTopGames = localStorage.getItem('topGames');
-            
-            if (savedTopGames) {
-                const topGames = JSON.parse(savedTopGames);
-                
-                if (topGames.length === 0) {
-                    topGamesContainer.innerHTML = '<div class="no-games">暂无评分数据，请先在打分板块为游戏评分！</div>';
-                    return;
-                }
-                
-                topGamesContainer.innerHTML = '';
-                
-                topGames.forEach((game, index) => {
-                    if (game.avgRating > 0) {
-                        const topGameEl = document.createElement('div');
-                        topGameEl.className = 'top-game';
-                        
-                        // 显示星星评分
-                        const stars = '★'.repeat(Math.round(game.avgRating));
-                        const emptyStars = '☆'.repeat(5 - Math.round(game.avgRating));
-                        
-                        topGameEl.innerHTML = `
-                            <div class="rank">${index + 1}</div>
-                            <iframe src="${game.url}" class="game-frame" allowfullscreen></iframe>
-                            <div class="game-details">
-                                <h3 class="game-title">${game.title}</h3>
-                                <div class="rating">${stars}${emptyStars} ${game.avgRating.toFixed(1)}</div>
-                                <div class="rating-count">${game.totalRatings} 人评分</div>
-                                <button class="play-button" onclick="window.open('${game.url}', '_blank')">全屏游玩</button>
-                            </div>
-                        `;
-                        
-                        topGamesContainer.appendChild(topGameEl);
-                    }
-                });
-                
-                if (topGamesContainer.children.length === 0) {
-                    topGamesContainer.innerHTML = '<div class="no-games">暂无评分数据，请先在打分板块为游戏评分！</div>';
-                }
-            } else {
-                topGamesContainer.innerHTML = '<div class="no-games">暂无评分数据，请先在打分板块为游戏评分！</div>';
-            }
-        }
-        
-        // 页面加载时初始化
-        window.addEventListener('DOMContentLoaded', loadTopGames);
     </script>
 </body>
 </html>

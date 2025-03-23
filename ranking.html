@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML5游戏排名板块 - hot10games.online</title>
+    <style>
+        /* 优化后的统一样式 */
+        body {
+            font-family: 'Arial', sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .nav {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        
+        .nav a {
+            margin: 0 15px;
+            padding: 12px 25px;
+            border-radius: 25px;
+            background: #4CAF50;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .nav a.active {
+            background: #388E3C;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        /* 排名区块优化 */
+        .top-games {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .top-game {
+            display: grid;
+            grid-template-columns: 50px 1fr;
+            align-items: center;
+            padding: 20px;
+            margin-bottom: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .rank {
+            font-size: 24px;
+            font-weight: bold;
+            color: #4CAF50;
+            text-align: center;
+        }
+        
+        .game-frame {
+            width: 100%;
+            height: 180px;
+            border: none;
+            border-radius: 8px;
+            margin-right: 20px;
+        }
+        
+        .game-details {
+            padding-left: 25px;
+        }
+        
+        .game-title {
+            font-size: 22px;
+            color: #333;
+            margin: 0 0 10px;
+        }
+        
+        .rating {
+            color: #FFD700;
+            font-size: 18px;
+        }
+        
+        .play-button {
+            background: #4CAF50;
+            padding: 10px 25px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>热门游戏排行榜</h1>
+        <p>玩家实时评选的TOP10游戏</p>
+    </header>
+    
+    <!-- 导航栏（关键修改点） -->
+    <div class="nav">
+        <a href="index.html">返回打分</a>
+        <a href="#" class="active">实时排名</a>
+    </div>
+    
+    <div class="top-games" id="topGamesContainer">
+        <!-- 动态生成内容 -->
+    </div>
+
+    <script>
+        // 增强版数据加载逻辑
+        function loadTopGames() {
+            try {
+                const savedData = localStorage.getItem('gameRatings');
+                const container = document.getElementById('topGamesContainer');
+                
+                if (!savedData) {
+                    container.innerHTML = `<div class="no-games">暂无评分数据，快去打分板块评分吧！</div>`;
+                    return;
+                }
+
+                const { games } = JSON.parse(savedData);
+                const validGames = games.filter(g => g.avgRating > 0);
+                
+                if (validGames.length === 0) {
+                    container.innerHTML = `<div class="no-games">暂无有效评分数据</div>`;
+                    return;
+                }
+
+                // 按评分排序
+                const topGames = validGames.sort((a,b) => b.avgRating - a.avgRating).slice(0,10);
+                
+                container.innerHTML = topGames.map((game, index) => `
+                    <div class="top-game">
+                        <div class="rank">${index + 1}</div>
+                        <iframe 
+                            src="${game.url}" 
+                            class="game-frame" 
+                            allowfullscreen 
+                            loading="lazy">
+                        </iframe>
+                        <div class="game-details">
+                            <h3 class="game-title">${game.title}</h3>
+                            <div class="rating">
+                                ${'★'.repeat(Math.round(game.avgRating))}
+                                ${'☆'.repeat(5 - Math.round(game.avgRating))} 
+                                (${game.avgRating.toFixed(1)})
+                            </div>
+                            <div class="rating-count">累计评分：${game.totalRatings}次</div>
+                            <button 
+                                class="play-button"
+                                onclick="window.open('${game.url}', '_blank')">
+                                立即开玩
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+                
+            } catch (error) {
+                console.error('数据加载失败:', error);
+                alert('排行榜加载失败，请刷新页面重试');
+            }
+        }
+
+        // 自动加载数据
+        window.addEventListener('DOMContentLoaded', () => {
+            loadTopGames();
+            // 每5分钟自动刷新
+            setInterval(loadTopGames, 300000);
+        });
+    </script>
+</body>
+</html>

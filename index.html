@@ -285,3 +285,220 @@
     </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML5游戏排名板块</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .nav {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            padding: 8px 15px;
+            border-radius: 5px;
+            background-color: #e0e0e0;
+        }
+        
+        .nav a.active {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        .top-games {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .top-game {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            position: relative;
+        }
+        
+        .top-game:last-child {
+            border-bottom: none;
+        }
+        
+        .rank {
+            font-size: 24px;
+            font-weight: bold;
+            width: 50px;
+            text-align: center;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            line-height: 36px;
+            z-index: 10;
+        }
+        
+        .game-frame {
+            width: 250px;
+            height: 150px;
+            border: none;
+            margin-right: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .game-details {
+            flex-grow: 1;
+        }
+        
+        .game-title {
+            font-size: 20px;
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .rating {
+            color: #FFD700;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        
+        .rating-count {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        
+        .play-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .play-button:hover {
+            background-color: #45a049;
+        }
+        
+        .no-games {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            font-size: 18px;
+        }
+        
+        @media screen and (max-width: 768px) {
+            .top-game {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .game-frame {
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+            
+            .play-button {
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>HTML5游戏中心</h1>
+        <p>玩家评选的最佳游戏排名！</p>
+    </header>
+    
+    <div class="nav">
+        <a href="index.html">打分板块</a>
+        <a href="#" class="active">排名板块</a>
+    </div>
+    
+    <div class="top-games" id="topGamesContainer">
+        <!-- 这里将动态填充排名前10的游戏 -->
+    </div>
+
+    <script>
+        // 从本地存储加载排名前10的游戏
+        function loadTopGames() {
+            const topGamesContainer = document.getElementById('topGamesContainer');
+            const savedTopGames = localStorage.getItem('topGames');
+            
+            if (savedTopGames) {
+                const topGames = JSON.parse(savedTopGames);
+                
+                if (topGames.length === 0) {
+                    topGamesContainer.innerHTML = '<div class="no-games">暂无评分数据，请先在打分板块为游戏评分！</div>';
+                    return;
+                }
+                
+                topGamesContainer.innerHTML = '';
+                
+                topGames.forEach((game, index) => {
+                    if (game.avgRating > 0) {
+                        const topGameEl = document.createElement('div');
+                        topGameEl.className = 'top-game';
+                        
+                        // 显示星星评分
+                        const stars = '★'.repeat(Math.round(game.avgRating));
+                        const emptyStars = '☆'.repeat(5 - Math.round(game.avgRating));
+                        
+                        topGameEl.innerHTML = `
+                            <div class="rank">${index + 1}</div>
+                            <iframe src="${game.url}" class="game-frame" allowfullscreen></iframe>
+                            <div class="game-details">
+                                <h3 class="game-title">${game.title}</h3>
+                                <div class="rating">${stars}${emptyStars} ${game.avgRating.toFixed(1)}</div>
+                                <div class="rating-count">${game.totalRatings} 人评分</div>
+                                <button class="play-button" onclick="window.open('${game.url}', '_blank')">全屏游玩</button>
+                            </div>
+                        `;
+                        
+                        topGamesContainer.appendChild(topGameEl);
+                    }
+                });
+                
+                if (topGamesContainer.children.length === 0) {
+                    topGamesContainer.innerHTML = '<div class="no-games">暂无评分数据，请先在打分板块为游戏评分！</div>';
+                }
+            } else {
+                topGamesContainer.innerHTML = '<div class="no-games">暂无评分数据，请先在打分板块为游戏评分！</div>';
+            }
+        }
+        
+        // 页面加载时初始化
+        window.addEventListener('DOMContentLoaded', loadTopGames);
+    </script>
+</body>
+</html>

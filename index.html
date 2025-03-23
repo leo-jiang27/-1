@@ -1,295 +1,287 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>热门HTML5游戏推荐</title>
+    <title>HTML5游戏打分板块</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Microsoft YaHei', sans-serif;
-        }
-        
         body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
             background-color: #f5f5f5;
-            color: #333;
-            line-height: 1.6;
         }
         
         header {
-            background-color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .nav {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            padding: 8px 15px;
+            border-radius: 5px;
+            background-color: #e0e0e0;
+        }
+        
+        .nav a.active {
+            background-color: #4CAF50;
             color: white;
-            padding: 1rem;
-            text-align: center;
         }
         
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-        
-        .intro {
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-        
-        .games-grid {
+        .games-container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
+            gap: 20px;
         }
         
         .game-card {
             background-color: white;
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
         
-        .game-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .game-card img {
+        .game-frame {
             width: 100%;
-            height: 180px;
-            object-fit: cover;
+            height: 200px;
+            border: none;
         }
         
         .game-info {
-            padding: 1rem;
+            padding: 15px;
         }
         
-        .game-info h3 {
-            margin-bottom: 0.5rem;
-            color: #2c3e50;
+        .game-title {
+            font-size: 18px;
+            margin-top: 0;
+            margin-bottom: 10px;
         }
         
-        .game-info p {
-            color: #7f8c8d;
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-        }
-        
-        .play-btn {
-            display: inline-block;
-            background-color: #3498db;
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
-        }
-        
-        .play-btn:hover {
-            background-color: #2980b9;
-        }
-        
-        .game-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            z-index: 100;
-            justify-content: center;
+        .rating-container {
+            display: flex;
             align-items: center;
+            margin-bottom: 10px;
         }
         
-        .modal-content {
-            background-color: white;
-            width: 90%;
-            max-width: 800px;
-            height: 90%;
-            max-height: 600px;
-            border-radius: 8px;
-            position: relative;
+        .stars {
+            display: flex;
+            margin-right: 10px;
         }
         
-        .close-btn {
-            position: absolute;
-            top: -40px;
-            right: 0;
+        .star {
+            cursor: pointer;
+            font-size: 24px;
+            color: #ddd;
+        }
+        
+        .star.active {
+            color: #FFD700;
+        }
+        
+        .avg-rating {
+            margin-left: 10px;
+        }
+        
+        .submit-rating {
+            background-color: #4CAF50;
             color: white;
-            font-size: 2rem;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
             cursor: pointer;
         }
         
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            border-radius: 8px;
+        .submit-rating:hover {
+            background-color: #45a049;
         }
         
-        footer {
-            text-align: center;
-            padding: 2rem;
-            background-color: #2c3e50;
+        .full-screen-button {
+            background-color: #2196F3;
             color: white;
-            margin-top: 2rem;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 10px;
         }
         
-        @media (max-width: 768px) {
-            .games-grid {
-                grid-template-columns: 1fr;
-            }
+        .full-screen-button:hover {
+            background-color: #0b7dda;
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>热门HTML5游戏推荐</h1>
-        <p>发现并体验最好玩的HTML5游戏</p>
+        <h1>HTML5游戏中心</h1>
+        <p>玩游戏，打分享，推荐好游戏！</p>
     </header>
     
-    <div class="container">
-        <section class="intro">
-            <h2>2025年最火爆的10款HTML5游戏</h2>
-            <p>这些游戏无需下载，直接在浏览器中即可畅玩！</p>
-        </section>
-        
-        <section class="games-grid">
-            <!-- 游戏1 -->
-            <div class="game-card">
-                <img src="/api/placeholder/300/180" alt="2048">
-                <div class="game-info">
-                    <h3>2048</h3>
-                    <p>经典数字益智游戏，通过合并相同数字创造2048。</p>
-                    <a href="#" class="play-btn" onclick="openGameModal('https://play2048.co/')">开始游戏</a>
-                </div>
-            </div>
-            
-            <!-- 游戏2 -->
-            <div class="game-card">
-                <img src="/api/placeholder/300/180" alt="Flappy Bird">
-                <div class="game-info">
-                    <h3>Flappy Bird</h3>
-                    <p>控制小鸟穿过管道，挑战你的耐心和反应能力。</p>
-                    <a href="#" class="play-btn" onclick="openGameModal('https://flappybird.io/')">开始游戏</a>
-                </div>
-            </div>
-            
-            <!-- 游戏3 -->
-            <div class="game-card">
-                <img src="/api/placeholder/300/180" alt="跳一跳">
-                <div class="game-info">
-                    <h3>跳一跳</h3>
-                    <p>模仿微信小游戏，控制小人跳跃到目标平台。</p>
-                    <a href="#" class="play-btn" onclick="openGameModal('https://jump.h5gg.me/')">开始游戏</a>
-                </div>
-            </div>
-            
-            <!-- 游戏4 -->
-            <div class="game-card">
-                <img src="/api/placeholder/300/180" alt="Cut the Rope">
-                <div class="game-info">
-                    <h3>Cut the Rope</h3>
-                    <p>通过切断绳子，将糖果送入小怪兽嘴里的物理解谜游戏。</p>
-                    <a href="#" class="play-btn" onclick="openGameModal('https://cuttherope.net/')">开始游戏</a>
-                </div>
-            </div>
-            
-            <!-- 游戏5 -->
-            <div class="game-card">
-                <img src="/api/placeholder/300/180" alt="贪吃蛇">
-                <div class="game-info">
-                    <h3>贪吃蛇</h3>
-                    <p>经典的贪吃蛇游戏，控制蛇吃食物并不断变长。</p>
-                    <a href="#" class="play-btn" onclick="openGameModal('https://playsnake.org/')">开始游戏</a>
-                </div>
-            </div>
-            
-            <!-- 游戏6 -->
-            <div class="game-card">
-                <img src="/api/placeholder/300/180" alt="Slither.io">
-                <div class="game-info">
-                    <h3>Slither.io</h3>
-                    <p>多人贪吃蛇游戏，与世界各地玩家竞争成为最大的蛇。</p>
-                    <a href="#" class="play-btn" onclick="openGameModal('https://slither.io/')">开始游戏</a>
-                </div>
-            </div>
-            
-            <!-- 游戏7 -->
-            <div class="game-card">
-                <img src="/api/placeholder/300/180" alt="Wordle">
-                <div class="game-info">
-                    <h3>Wordle</h3>
-                    <p>每天一个单词，六次机会，猜中这个5个字母的单词。</p>
-                    <a href="#" class="play-btn" onclick="openGameModal('https://www.powerlanguage.co.uk/wordle/')">开始游戏</a>
-                </div>
-            </div>
-            
-            <!-- 游戏8 -->
-            <div class="game-card">
-                <img src="/api/placeholder/300/180" alt="Agar.io">
-                <div class="game-info">
-                    <h3>Agar.io</h3>
-                    <p>控制一个细胞，吃掉比你小的细胞，避免被比你大的吃掉。</p>
-                    <a href="#" class="play-btn" onclick="openGameModal('https://agar.io/')">开始游戏</a>
-                </div>
-            </div>
-            
-            <!-- 游戏9 -->
-            <div class="game-card">
-                <img src="/api/placeholder/300/180" alt="钢琴块">
-                <div class="game-info">
-                    <h3>钢琴块</h3>
-                    <p>点击黑色钢琴块，避免白色块，创造美妙音乐。</p>
-                    <a href="#" class="play-btn" onclick="openGameModal('https://www.pianotiles.org/')">开始游戏</a>
-                </div>
-            </div>
-            
-            <!-- 游戏10 -->
-            <div class="game-card">
-                <img src="/api/placeholder/300/180" alt="六角碰撞">
-                <div class="game-info">
-                    <h3>六角碰撞</h3>
-                    <p>控制六边形，躲避障碍物，看看你能坚持多久。</p>
-                    <a href="#" class="play-btn" onclick="openGameModal('https://hextris.io/')">开始游戏</a>
-                </div>
-            </div>
-        </section>
+    <div class="nav">
+        <a href="#" class="active">打分板块</a>
+        <a href="ranking.html">排名板块</a>
     </div>
     
-    <!-- 游戏弹窗 -->
-    <div id="gameModal" class="game-modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeGameModal()">&times;</span>
-            <iframe id="gameFrame" src="" allowfullscreen></iframe>
-        </div>
+    <div class="games-container" id="gamesContainer">
+        <!-- 游戏卡片将由JavaScript动态生成 -->
     </div>
-    
-    <footer>
-        <p>&copy; 2025 热门HTML5游戏推荐网站. 版权所有</p>
-        <p>游戏均来自互联网，仅用于个人学习和体验</p>
-    </footer>
-    
+
     <script>
-        function openGameModal(gameUrl) {
-            document.getElementById('gameFrame').src = gameUrl;
-            document.getElementById('gameModal').style.display = 'flex';
-            return false;
+        // 游戏数据 - 使用你提供的20个游戏链接
+        const games = [
+            { id: 1, title: "Train Miner", url: "https://play.famobi.com/train-miner", avgRating: 0, totalRatings: 0 },
+            { id: 2, title: "Rise Up", url: "https://play.famobi.com/rise-up", avgRating: 0, totalRatings: 0 },
+            { id: 3, title: "Giant Rush", url: "https://play.famobi.com/giant-rush", avgRating: 0, totalRatings: 0 },
+            { id: 4, title: "Western Sniper", url: "https://play.famobi.com/western-sniper", avgRating: 0, totalRatings: 0 },
+            { id: 5, title: "Go Escape", url: "https://play.famobi.com/go-escape", avgRating: 0, totalRatings: 0 },
+            { id: 6, title: "Color Fill 3D", url: "https://play.famobi.com/color-fill-3d", avgRating: 0, totalRatings: 0 },
+            { id: 7, title: "Spot the Cat", url: "https://play.famobi.com/spot-the-cat", avgRating: 0, totalRatings: 0 },
+            { id: 8, title: "Color Roll 3D", url: "https://play.famobi.com/color-roll-3d", avgRating: 0, totalRatings: 0 },
+            { id: 9, title: "Color Water Sort 3D", url: "https://play.famobi.com/color-water-sort-3d", avgRating: 0, totalRatings: 0 },
+            { id: 10, title: "Braindom", url: "https://play.famobi.com/braindom", avgRating: 0, totalRatings: 0 },
+            { id: 11, title: "Sort It", url: "https://play.famobi.com/sort-it", avgRating: 0, totalRatings: 0 },
+            { id: 12, title: "Parking Jam", url: "https://play.famobi.com/parking-jam", avgRating: 0, totalRatings: 0 },
+            { id: 13, title: "Fashion Battle", url: "https://play.famobi.com/fashion-battle", avgRating: 0, totalRatings: 0 },
+            { id: 14, title: "Fruit Party", url: "https://play.famobi.com/fruit-party", avgRating: 0, totalRatings: 0 },
+            { id: 15, title: "Thief Puzzle", url: "https://play.famobi.com/thief-puzzle", avgRating: 0, totalRatings: 0 },
+            { id: 16, title: "Guess Their Answer", url: "https://play.famobi.com/guess-their-answer", avgRating: 0, totalRatings: 0 },
+            { id: 17, title: "Neon Rider", url: "https://play.famobi.com/neon-rider", avgRating: 0, totalRatings: 0 },
+            { id: 18, title: "Speed Master", url: "https://play.famobi.com/speed-master", avgRating: 0, totalRatings: 0 },
+            { id: 19, title: "Alien Attack", url: "https://play.famobi.com/alien-attack", avgRating: 0, totalRatings: 0 },
+            { id: 20, title: "Peet Sneak", url: "https://play.famobi.com/peet-sneak", avgRating: 0, totalRatings: 0 }
+        ];
+        
+        // 初始化游戏卡片
+        function initGames() {
+            const container = document.getElementById('gamesContainer');
+            container.innerHTML = '';
+            
+            games.forEach(game => {
+                const gameCard = document.createElement('div');
+                gameCard.className = 'game-card';
+                gameCard.innerHTML = `
+                    <iframe src="${game.url}" class="game-frame" allowfullscreen></iframe>
+                    <div class="game-info">
+                        <h3 class="game-title">${game.title}</h3>
+                        <div class="rating-container">
+                            <div class="stars" data-game-id="${game.id}">
+                                <span class="star" data-value="1">★</span>
+                                <span class="star" data-value="2">★</span>
+                                <span class="star" data-value="3">★</span>
+                                <span class="star" data-value="4">★</span>
+                                <span class="star" data-value="5">★</span>
+                            </div>
+                            <span class="avg-rating">平均: ${game.avgRating.toFixed(1)}</span>
+                        </div>
+                        <div>
+                            <button class="submit-rating" data-game-id="${game.id}">提交评分</button>
+                            <button class="full-screen-button" onclick="window.open('${game.url}', '_blank')">全屏玩</button>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(gameCard);
+            });
+            
+            // 为星星评分添加事件监听器
+            document.querySelectorAll('.star').forEach(star => {
+                star.addEventListener('click', function() {
+                    const value = parseInt(this.dataset.value);
+                    const gameId = parseInt(this.parentElement.dataset.gameId);
+                    const starsContainer = this.parentElement;
+                    
+                    // 清除所有星星的激活状态
+                    starsContainer.querySelectorAll('.star').forEach(s => {
+                        s.classList.remove('active');
+                    });
+                    
+                    // 设置选中的星星及之前的星星为激活状态
+                    for (let i = 1; i <= value; i++) {
+                        starsContainer.querySelector(`.star[data-value="${i}"]`).classList.add('active');
+                    }
+                    
+                    // 保存用户评分到本地
+                    starsContainer.dataset.userRating = value;
+                });
+            });
+            
+            // 为提交按钮添加事件监听器
+            document.querySelectorAll('.submit-rating').forEach(button => {
+                button.addEventListener('click', function() {
+                    const gameId = parseInt(this.dataset.gameId);
+                    const starsContainer = document.querySelector(`.stars[data-game-id="${gameId}"]`);
+                    const userRating = parseInt(starsContainer.dataset.userRating || 0);
+                    
+                    if (userRating === 0) {
+                        alert('请先选择评分再提交！');
+                        return;
+                    }
+                    
+                    // 找到对应的游戏数据
+                    const gameIndex = games.findIndex(g => g.id === gameId);
+                    if (gameIndex !== -1) {
+                        const game = games[gameIndex];
+                        game.totalRatings++;
+                        game.avgRating = ((game.avgRating * (game.totalRatings - 1)) + userRating) / game.totalRatings;
+                        
+                        // 更新显示的平均评分
+                        const avgRatingEl = starsContainer.nextElementSibling;
+                        avgRatingEl.textContent = `平均: ${game.avgRating.toFixed(1)}`;
+                        
+                        // 保存评分数据到本地存储
+                        saveRatings();
+                        
+                        // 更新排名板块
+                        updateRankings();
+                        
+                        alert('评分已提交，谢谢！');
+                    }
+                });
+            });
         }
         
-        function closeGameModal() {
-            document.getElementById('gameFrame').src = '';
-            document.getElementById('gameModal').style.display = 'none';
+        // 保存评分数据到本地存储
+        function saveRatings() {
+            localStorage.setItem('gameRatings', JSON.stringify(games));
         }
         
-        // 点击模态框外部关闭
-        window.onclick = function(event) {
-            if (event.target == document.getElementById('gameModal')) {
-                closeGameModal();
+        // 从本地存储加载评分数据
+        function loadRatings() {
+            const savedGames = localStorage.getItem('gameRatings');
+            if (savedGames) {
+                const parsedGames = JSON.parse(savedGames);
+                games.forEach((game, index) => {
+                    if (parsedGames[index]) {
+                        game.avgRating = parsedGames[index].avgRating;
+                        game.totalRatings = parsedGames[index].totalRatings;
+                    }
+                });
             }
         }
+        
+        // 更新排名板块的数据
+        function updateRankings() {
+            // 按平均评分排序游戏
+            const topGames = [...games].sort((a, b) => b.avgRating - a.avgRating).slice(0, 10);
+            // 保存前10名游戏到本地存储
+            localStorage.setItem('topGames', JSON.stringify(topGames));
+        }
+        
+        // 页面加载时初始化
+        window.addEventListener('DOMContentLoaded', () => {
+            loadRatings();
+            initGames();
+            updateRankings();
+        });
     </script>
 </body>
 </html>
